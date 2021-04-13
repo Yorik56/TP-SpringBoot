@@ -1,21 +1,12 @@
-package com.tp.springboot.entities;
+package com.tp.springboot.dtos;
 
+import com.tp.springboot.entities.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-
-
-
-@Entity
-public class Book extends BaseEntity {
-	@Column(nullable = false)
+public class BookDto {
+	
 	private String name;
-	@Column(nullable = false)
 	private int nbPages;
-	@Column(nullable = false)
 	private int price;
-	@ManyToOne
 	private User user;
 	
 	public String getName() {
@@ -41,8 +32,7 @@ public class Book extends BaseEntity {
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}	
-	
+	}
 	
 	
 }

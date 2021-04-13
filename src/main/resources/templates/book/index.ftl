@@ -3,7 +3,7 @@
   <div>
     <div>
       ${item.name}
-      ${item.user.id}
+
       
       ${item.price}
       ${item.nbPages}

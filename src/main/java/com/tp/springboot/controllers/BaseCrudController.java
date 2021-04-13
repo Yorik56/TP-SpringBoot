@@ -23,12 +23,16 @@ public abstract class BaseCrudController<T extends BaseEntity, DTO> {
     protected static final String DETAILS_TEMPLATE = "/details";
 
     private final String TEMPLATE_NAME;
+    protected final String TEMPLATE_BOOK = "book";
+    protected final String TEMPLATE_USER = "user";
     protected final String REDIRECT_INDEX;
+    protected final String REDIRECT_INDEX_USER;
     protected final String REDIRECT_CREATE;
 
     public BaseCrudController(String templateName) {
         this.TEMPLATE_NAME = templateName;
         this.REDIRECT_INDEX = "redirect:" + "/" + this.TEMPLATE_NAME + INDEX_ROUTE;
+        this.REDIRECT_INDEX_USER = "redirect:" + "/" + this.TEMPLATE_USER + INDEX_ROUTE;
         this.REDIRECT_CREATE = "redirect:" + "/" + this.TEMPLATE_NAME + CREATE_ROUTE;
     }
 
@@ -46,21 +50,25 @@ public abstract class BaseCrudController<T extends BaseEntity, DTO> {
 
     @GetMapping(value = {CREATE_ROUTE})
     public String createGet(final Model model, final RedirectAttributes attributes, final HttpServletRequest request) {
-
+    	String result = "/" + this.TEMPLATE_NAME + CREATE_ROUTE;
         if (attributes.getFlashAttributes().containsKey(FLASH_ERRORS)) {
             model.addAttribute(FLASH_ERRORS, attributes.getFlashAttributes().get(FLASH_ERRORS));
         }
-
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals("moncookie")) {
-                    model.addAttribute("moncookie", cookie.getValue());
-                }
-            }
+    	
+        if(TEMPLATE_NAME == TEMPLATE_BOOK) {
+        	result = REDIRECT_INDEX_USER;
+        	if (request.getCookies() != null) {
+        		for (Cookie cookie : request.getCookies()) {
+        			if (cookie.getName().equals("login")) {
+        				result = "/" + this.TEMPLATE_NAME + CREATE_ROUTE;
+        				model.addAttribute("login", cookie.getValue());
+        			}
+        		}
+        	}        	
         }
 
         this.preCreateGet(model);
-        return "/" + this.TEMPLATE_NAME + CREATE_ROUTE;
+        return result;
     }
 
     protected void preCreateGet(final Model model) {

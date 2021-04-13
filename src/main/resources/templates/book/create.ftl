@@ -1,5 +1,18 @@
 <#include "../bases/importbase.ftl"/>
 
+<#if errors??>
+<div class="alert alert-warning" role="alert">
+  ${errors}
+</div>
+</#if>
+<#if login??>
+<div class="alert alert-primary" role="alert">
+  ${login}
+</div>
+</#if>
+<#if moncookie??>
+${moncookie}
+</#if>
 
 <div class="container">
 	<h1>Ajouter un livre</h1>

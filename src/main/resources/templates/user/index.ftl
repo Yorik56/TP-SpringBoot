@@ -51,7 +51,7 @@
 			      <td>${item.lastname}</td>
 			      <td>${item.role.name}</td>
 			      <td><a href="/user/details/${item.id}">D&eacute;tails</a></td>
-			      <td><a href="/user/connect/${item.id}/${item.role.id}">Connect</a></td>
+			      <td><a href="/login/${item.id}/${item.role.id}">Connect</a></td>
 			    </tr>
 			    </#list>
 			  </tbody>
